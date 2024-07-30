@@ -339,7 +339,6 @@ html {
     white-space: nowrap;
     color: #fff;
     text-shadow: -1px -1px 2px #000, 1px 1px 2px #000;
-    text-align: left
 }
 
 .ImageComparer .box .slider .afterDescription select,
@@ -352,13 +351,25 @@ html {
 
 .ImageComparer .box .slider .beforeDescription {
     top: 10px;
-    right: 20px
+    right: 20px;
+    text-align: right;
 }
 
 .ImageComparer .box .slider .afterDescription {
     top: 10px;
     right: -520px;
-    width: 500px
+    width: 500px;
+    text-align: left;
+}
+
+.ImageComparer .box div[class$=Description] .name {
+    color: #b4b4b4;
+    font-size: 0.8rem;
+}
+
+.ImageComparer .box div[class$=Description] .size {
+    font-size: 1rem;
+    line-height: 1.4rem;
 }
 
 .ImageComparer .box .before {
@@ -381,7 +392,7 @@ html {
 .ImageComparer.sliding .beforeDescription,
 .ImageComparer.sliding .controls,
 .ImageComparer.sliding .description {
-    opacity: .5
+    opacity: .8
 }
 
 .ImageComparer.sliding .slider button {
@@ -647,13 +658,63 @@ html {
 
 
 .leftinputbox {
-    float: left;
+    /* float: left;
     width: 500px;
-    height: 30x;
-    margin-right: -100%;
+    height: 30px;
+    margin-right: -100%; */
 }
 
 .rightinputbox {
-    margin-left: 310px;
-    height: 30x;
+    /* margin-left: 310px;
+    height: 30px; */
+}
+
+.textbox {
+    margin: 1% auto;
+    text-align: center;
+}
+
+.textbox table {
+    width: 90%;
+    margin: 0 auto;
+}
+
+.textbox table td {
+    width: 33%;
+}
+
+.files {
+    position: fixed;
+    z-index: 1000;
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    border: 4px dotted gray;
+    color: #bbb;
+    margin: 1%;
+    padding: 1%;
+    width: 200px;
+    height: 200px;
+    font-size: 1rem;
+}
+
+.dragin{
+    transition-duration: 0.1s;
+    border-color: rgb(212, 212, 212);
+    border-width: 8px;
+    color: rgb(152, 208, 100);
+    font-weight: bold;
+    font-size: 1.4rem;
+    align-items: flex-start;
+}
+
+.leftfile {
+    left: 0;
+    top: 0;
+}
+
+.rightfile {
+    top: 0;
+    right: 0;
 }

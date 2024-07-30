@@ -2,19 +2,24 @@
 <html>
 
 <head>
-    <link rel="stylesheet" type="text/css" href="./css/global.css" />
+    <title>Image Sliding Comparison Tool</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="./css/global.css?1234" />
     <script>window.scripts = [];</script>
     <!-- script.src = "https://imgsli.com/bundling/main.js?v=pKQ8ASHNgnlsoDSsNYWPZ2tFPEIjVx2uoCPm0gmqUl8"; -->
 
     <script type="text/javascript" src="./js/imgsli_bundling_main.js"></script>
     <!-- <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script> -->
-    <script src="./js/jquery_3.3.1_jquery.js"></script>
+    <script type="text/javascript" src="./js/jquery_3.3.1.js"></script>
+    <script type="text/javascript" src="./js/jquery.filedrop.js"></script>
 </head>
 
 <body>
+    <div class="files leftfile" id="file1">Image 1</div>
+    <div class="files rightfile" id="file2">Image 2</div>
     <div class="ImageComparer" style="min-height: min(878px, 100vw / 2);">
         <div class="box">
-            <div class="description" id="battletitle">原图高清对比</div>
+            <div class="description" id="battletitle">Image Comparison</div>
             <div class="controls">
                 <a href="#" class="zoom-in" title="toggle zoom"><svg xmlns="http://www.w3.org/2000/svg" width="32"
                         height="32" viewBox="0 0 32 32">
@@ -43,96 +48,61 @@
             </div>
             <div class="slider">
                 <button></button>
-                <div class="beforeDescription" id="beforeDescription">原图</div>
-                <div class="afterDescription" id="afterDescription">高清放大</div>
+                <div class="beforeDescription" id="beforeDescription">
+                    <div class="name">Original</div>
+                    <div class="size"></div>
+                </div>
+                <div class="afterDescription" id="afterDescription">
+                    <div class="name">Super Resolution</div>
+                    <div class="size"></div>
+                </div>
             </div>
             <div class="before">
-                <img alt="OFF" id="beforeImage" data-lazy-src="./img/before.png" src="./img/before.png" style>
+                <img alt="OFF" id="beforeImage" data-lazy-src="./img/small.png" src="./img/small.png" onload="imageLoaded(this)" />
             </div>
-            <img alt="ON" class="after" id="afterImage" src="./img/highres.png" style>
+            <img alt="ON" class="after" id="afterImage" src="./img/large.png" onload="imageLoaded(this)" />
         </div>
-
     </div>
     <div class="textbox">
-        <div class="titleinputbox">
-            <form enctype="multipart/form-data">
-                <fieldset>
-                    <p>对比标题:<input id="titlebox" value="原图高清对比" /></p>
-                </fieldset>
-                <!-- <input type="file" id="titleinput" name="titleinput" />
-                </fieldset> -->
-            </form>
-        </div>
-        <div class="leftinputbox">
-            <form enctype="multipart/form-data">
-                <fieldset>
-                    <!-- 指定左图标题 -->
-                    <p>左图:<input id="lefttag" value="原图" /></p>
-                    <!-- 指定左图输入 -->
-                    <input type="file" id="leftInputImage" name="leftInputImage" />
-
-                </fieldset>
-
-            </form>
-        </div>
-        <div class="rightinputbox">
-            <form enctype="multipart/form-data">
-                <fieldset>
-                    <!-- 指定右图标题 -->
-                    <p>右图:<input id="righttag" value="高清放大" /></p>
-                    <!-- 指定右图输入 -->
-                    <input type="file" id="rightInputImage" name="rightInputImage" />
-                </fieldset>
-            </form>
-        </div>
-
+        <table>
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="titleinputbox">
+                            <form enctype="multipart/form-data">
+                                <fieldset>
+                                    <p>Title : <input id="titlebox" value="Image Comparison" /></p>
+                                </fieldset>
+                                <!-- <input type="file" id="titleinput" name="titleinput" />
+                            </fieldset> -->
+                            </form>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="leftinputbox">
+                            <form enctype="multipart/form-data">
+                                <fieldset>
+                                    <p>Left Image : <input id="lefttag" value="Original" /></p>
+                                    <input type="file" id="leftInputImage" name="leftInputImage" />
+                                </fieldset>
+                            </form>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="rightinputbox">
+                            <form enctype="multipart/form-data">
+                                <fieldset>
+                                    <p>Right Image : <input id="righttag" value="Super Resolution" /></p>
+                                    <input type="file" id="rightInputImage" name="rightInputImage" />
+                                </fieldset>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
-    <script type="text/javascript">
-        // 获取文件上传临时路径
-        function getObjectURL(file) {
-            if (window.createObjectURL != undefined) {
-                return window.createObjectURL(file);
-            }
-
-            if (window.URL != undefined) {
-                return window.URL.createObjectURL(file);
-            }
-
-            if (window.webkitURL != undefined) {
-                return window.webkitURL.createObjectURL(file);
-            }
-            return null;
-        }
-
-        // 当指定ID的元素发生改变时，更改img元素，以显示指定的图片
-        // 更改左图的图片
-        $('#leftInputImage').change(function () {
-            var eImg = $('#beforeImage');
-            // 将img元素中的属性src,更改为指定路径
-            eImg.attr('src', getObjectURL($(this)[0].files[0]));
-        });
-        // 更改右图的图片
-        $('#rightInputImage').change(function () {
-            var eImg = $('#afterImage');
-            // 将img元素中的属性src,更改为指定路径
-            eImg.attr('src', getObjectURL($(this)[0].files[0]));
-        });
-
-        //修改左图标题
-        $('#lefttag').change(function () {
-            document.getElementById("beforeDescription").innerHTML = document.getElementById('lefttag').value;
-        });
-
-        //修改右图标题
-        $('#righttag').change(function () {
-            document.getElementById("afterDescription").innerHTML = document.getElementById('righttag').value;
-        });
-
-        //输入框修改时，修改图片上div的显示
-        $('#titlebox').change(function () {
-            document.getElementById("battletitle").innerHTML = document.getElementById('titlebox').value;
-        });    
-    </script>
+    <script type="text/javascript" src="./js/app.js"></script>
 
     <script>
         window.scripts.push(function () {
